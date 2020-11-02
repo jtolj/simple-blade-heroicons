@@ -53,6 +53,6 @@ For example:
 ```blade
 @php
   $iconName = 'o-arrow-up';
-@php
+@endphp
 <x-heroicon::icon name="{{ $iconName }} ">
 ```
