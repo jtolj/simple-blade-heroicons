@@ -1,0 +1,12 @@
+{
+  "name": "simple-blade-heroicons",
+  "dependencies": {},
+  "devDependencies": {
+    "heroicons": "^0.4.2"
+  },
+  "scripts": {
+    "build": "node bin/build.js"
+  },
+  "author": "jesse@objectfactory.io",
+  "license": "MIT"
+}
