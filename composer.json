@@ -1,33 +1,33 @@
 {
-    "name": "jtolj/simple-blade-heroicons",
-    "description": "A no-frills dump of heroicons into Blade components.",
-    "keywords": [
-        "Blade",
-        "Heroicons",
-        "Laravel"
-    ],
-    "homepage": "https://github.com/jtolj/simple-blade-heroicons",
-    "license": "MIT",
-    "require": {
-        "illuminate/support": "^7.14|^8.0",
-        "php": "^7.3|^8.0"
-    },
-    "authors": [
-        {
-            "name": "Jesse Tolj",
-            "email": "jesse@objectfactory.io"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Jtolj\\SimpleBladeHeroicons\\": "src"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Jtolj\\SimpleBladeHeroicons\\SimpleBladeHeroiconsServiceProvider"
-            ]
-        }
+  "name": "jtolj/simple-blade-heroicons",
+  "description": "A simple way to use Heroicons in Blade templates.",
+  "keywords": [
+    "Blade",
+    "Heroicons",
+    "Laravel"
+  ],
+  "homepage": "https://github.com/jtolj/simple-blade-heroicons",
+  "license": "MIT",
+  "require": {
+    "illuminate/support": "^7.14|^8.0",
+    "php": "^7.3|^8.0"
+  },
+  "authors": [
+    {
+      "name": "Jesse Tolj",
+      "email": "jesse@objectfactory.io"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Jtolj\\SimpleBladeHeroicons\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Jtolj\\SimpleBladeHeroicons\\SimpleBladeHeroiconsServiceProvider"
+      ]
+    }
+  }
 }
