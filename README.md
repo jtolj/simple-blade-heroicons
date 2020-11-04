@@ -17,7 +17,7 @@ composer require jtolj/simple-blade-heroicons
 
 ## Usage
 
-Icons can be included in blade templates by making use of the anonymous components that have been generated.
+Icons can be included in Blade templates by making use of the anonymous components that have been generated.
 
 You can see a list of available icons at [https://heroicons.com/](https://heroicons.com/).
 
@@ -30,7 +30,7 @@ For the 20x20 solid fill version, prefix the name with `s-`.
 <x-heroicon::s-exclamation>
 ```
 
-All attributes are passed down to the SVG tag.
+All attributes are passed through to the SVG tag.
 
 For example:
 
@@ -41,12 +41,12 @@ For example:
 Would render in the browser as:
 
 ```
-<svg class="text-gray-500" aria-description="An arrow pointing up" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<svg aria-description="An arrow pointing up" class="text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
 </svg>
 ```
 
-For convenience a generic icon component is also available. The icon name can be be dynamically passed through the "name" property.
+A generic icon component is also available. The icon name can be be dynamically passed through the "icon" property.
 
 For example:
 
@@ -54,5 +54,5 @@ For example:
 @php
   $iconName = 'o-arrow-up';
 @endphp
-<x-heroicon::icon name="{{ $iconName }} ">
+<x-heroicon::icon icon="{{ $iconName }}">
 ```
