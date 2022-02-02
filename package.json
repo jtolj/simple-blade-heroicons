@@ -1,7 +1,8 @@
 {
   "name": "simple-blade-heroicons",
   "devDependencies": {
-    "heroicons": "^1.0.5"
+    "heroicons": "^1.0.5",
+    "jsdom": "^19.0.0"
   },
   "scripts": {
     "build": "node bin/build.js"

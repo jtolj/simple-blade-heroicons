@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
 var process = require('process');
 
 let basePath = path.resolve(__dirname, '../node_modules/heroicons');
@@ -15,10 +17,21 @@ versions.forEach((version) => {
       process.exit(1);
     }
     files.forEach((file) => {
-      let svg = fs
+      let container = new JSDOM(
+        fs
         .readFileSync(`${svgPath}/${file}`)
         .toString()
-        .replace(/^(<svg )/, '<svg {{ $attributes }} ');
+      );
+
+      let svg = container.window.document.getElementsByTagName("svg")[0];
+      let attributes = [];
+      while (svg.attributes.length > 0) {
+        let item = svg.attributes[0];
+        attributes.push(`'${item.name}' => '${item.value}'`);
+        svg.removeAttribute(svg.attributes[0].name);
+      }
+
+      svg = svg.outerHTML.replace(/^(<svg>)/, `<svg {{ $attributes->merge([${attributes.join(', ')}]) }}>`);
 
       let bladeFilename = `${outputDir}/${version.charAt(0)}-${file.replace(
         /(\.svg)$/,
