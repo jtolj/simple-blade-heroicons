@@ -78,9 +78,12 @@ This version of the package supports using references to the icon instead of out
 
 This results in a significantly lighter DOM when the same icon is used repeatedly on a page.
 
-To use this feature, first add the following to your `layout.blade.php` just above your ending `<body>` tag:
+To use this feature, first add the following to your `layout.blade.php` **just before your closing `</body>` tag**:
 ```
-<x-heroicon::defs />
+<body>
+    ...contents...
+    <x-heroicon::defs />
+</body>
 ```
 
 You may then either update the 'use_references' configuration option to true to default to references, or set the `push-ref` property to `true` when rendering an icon.
@@ -91,15 +94,26 @@ You may then either update the 'use_references' configuration option to true to 
 
 ### JavaScript Frameworks
 
-To use the icons in this package with JavaScript frameworks, set up the `<x-heroicon::defs />` component as described above. 
+To use the icons in this package with JavaScript frameworks, set up the `<x-heroicon::defs>` component as described above.
 
-Next, pass a list of icons into the provided `<x-heroicon::iconset />` component. The icons you list here will be pushed into the `<x-heroicon::defs />` and become available to reference inside your JavaScript components.
+Next, pass a list of icons into the provided `<x-heroicon::iconset>` component. This must appear *before* `<x-heroicon::defs>` in your template.
+
+The icons you list will become available to reference inside your JavaScript components.
 
 A simple Vue.js example:
 
 ```
-<x-heroicon::iconset :icons="['o-arrow-up', 'o-arrow-down', 'o-arrow-left', 'o-arrow-right']" />
+<html>
+<head>
+...
+</head>
+<body>
+    <x-heroicon::iconset :icons="['o-arrow-up', 'o-arrow-down', 'o-arrow-left', 'o-arrow-right']" />
+    <div id="vue-app"></div>
+    <x-heroicon::defs />
+</body>
 ```
+
 
 ```
 // Heroicon.vue
@@ -109,6 +123,15 @@ export default {
     icon: String
   },
   computed: {
+    fill() {
+      return this.icon.startsWith('o') ? 'none' ? 'currentColor';
+    },
+    stroke() {
+      return this.icon.startsWith('o') ? 'currentColor' : null;
+    },
+    strokeWidth() {
+      return this.icon.startsWith('o') ? '1.5' : null;
+    },
     reference() {
       return '#heroicon-' + this.icon;
     },
@@ -122,7 +145,9 @@ export default {
    <svg 
       xmlns="http://www.w3.org/2000/svg" 
       :viewBox="viewBox" 
-      fill="currentColor"
+      :fill="fill"
+      :stroke="stroke"
+      :stroke-width="strokeWidth"
       >
       <use :href="reference" />
     </svg>
@@ -133,7 +158,11 @@ export default {
 // MyComponent.vue
 import Heroicon from './Heroicon.vue';
 <script>
-export default {}
+export default {
+  components: {
+    Heroicon
+  }
+}
 </script>
 
 <template>
