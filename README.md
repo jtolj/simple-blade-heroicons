@@ -35,10 +35,13 @@ For the 24x24 solid fill version, prefix the name with `s-`.
 
 For the 20x20 mini-solid version, prefix the name with `ms-`.
 
+For the 20x20 micro-solid version, prefix the name with `mis-`.
+
 ```blade
-<x-heroicon::o-exclamation />
-<x-heroicon::s-exclamation />
-<x-heroicon::ms-exclamation />
+<x-heroicon::o-exclamation-circle />
+<x-heroicon::s-exclamation-circle />
+<x-heroicon::ms-exclamation-circle />
+<x-heroicon::mis-exclamation-circle />
 ```
 
 ### Attributes
@@ -124,7 +127,7 @@ export default {
   },
   computed: {
     fill() {
-      return this.icon.startsWith('o') ? 'none' ? 'currentColor';
+      return this.icon.startsWith('o') ? 'none' : 'currentColor';
     },
     stroke() {
       return this.icon.startsWith('o') ? 'currentColor' : null;
@@ -136,15 +139,21 @@ export default {
       return '#heroicon-' + this.icon;
     },
     viewBox() {
-      return this.icon.startsWith('m') ? '0 0 20 20' : '0 0 24 24';
+      if (this.icon.startsWith('mi')) {
+        return '0 0 16 16';
+      } elseif (this.icon.startsWith('m')) {
+        return '0 0 20 20';
+      } else {
+        return '0 0 24 24';
+      }
     },
   }
 }
 </script>
 <template>
-   <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      :viewBox="viewBox" 
+   <svg
+      xmlns="http://www.w3.org/2000/svg"
+      :viewBox="viewBox"
       :fill="fill"
       :stroke="stroke"
       :stroke-width="strokeWidth"
