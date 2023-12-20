@@ -21,25 +21,30 @@ rimraf(`${outputDir}/*`, () => {
       prefix: "m",
       versions: ["solid"],
     },
+    {
+      directory: "16",
+      prefix: "mi",
+      versions: ["solid"],
+    },
   ];
-  
+
   iconSets.forEach((iconSet) => {
     iconSet.versions.forEach((version) => {
       let svgPath = `${basePath}/${iconSet.directory}/${version}`;
-  
+
       fs.readdir(svgPath, (err, files) => {
         if (err) {
           console.error(err);
           process.exit(1);
         }
-  
-        files.forEach((file) => { 
+
+        files.forEach((file) => {
           const identifier = `${iconSet.prefix}${version.charAt(0)}-${file.replace(/(\.svg)$/, "")}`;
-  
+
           let container = new JSDOM(
             fs.readFileSync(`${svgPath}/${file}`).toString()
           );
-          
+
           let svg = container.window.document.getElementsByTagName("svg")[0];
           let attributes = [];
           while (svg.attributes.length > 0) {
@@ -47,28 +52,28 @@ rimraf(`${outputDir}/*`, () => {
             attributes.push(`'${item.name}' => '${item.value}'`);
             svg.removeAttribute(svg.attributes[0].name);
           }
-  
+
           let wrapperForUse = svg.cloneNode(true);
-  
+
           while (wrapperForUse.firstChild) {
             wrapperForUse.removeChild(wrapperForUse.lastChild);
           }
-  
+
           let contentsForUse = svg.innerHTML;
-  
+
           wrapperForUse = wrapperForUse.outerHTML.replace(
             /^(<svg>)/,
             `<svg {{ $attributes->merge([${attributes.join(", ")}]) }}><use href="#heroicon-${identifier}" />`
           )
-  
+
           svg = svg.outerHTML.replace(
             /^(<svg>)/,
               `<svg {{ $attributes->merge([${attributes.join(", ")}]) }}>`
             );
-  
-          const template = 
+
+          const template =
   `@props(['pushRef' => config('simple-blade-heroicons.use_references', false), 'showIcon' => true])
-  
+
   @if ($pushRef)
     @if ($showIcon)
       ${wrapperForUse}
@@ -83,7 +88,7 @@ rimraf(`${outputDir}/*`, () => {
   @endif
   `
           let bladeFilename = `${outputDir}/${identifier}.blade.php`;
-  
+
           fs.writeFile(bladeFilename, template, (err) => {
             if (err) {
               console.error(err);
@@ -97,6 +102,6 @@ rimraf(`${outputDir}/*`, () => {
 
   let staticTemplates = ['icon.blade.php', 'iconset.blade.php', 'defs.blade.php'];
   staticTemplates.forEach((template) =>  fs.copyFileSync(path.resolve(__dirname, "./templates") + '/' + template, outputDir + '/' + template));
- 
+
 })
 
