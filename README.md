@@ -72,7 +72,7 @@ For example:
 @php
   $iconName = 'o-arrow-up';
 @endphp
-<x-heroicon::icon icon="{{ $iconName }}">
+<x-heroicon::icon icon="{{ $iconName }}" />
 ```
 
 ### `<use href="#id">` support
