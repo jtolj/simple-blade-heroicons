@@ -9,7 +9,7 @@
   "homepage": "https://github.com/jtolj/simple-blade-heroicons",
   "license": "MIT",
   "require": {
-    "illuminate/support": "^8.0|^9.0|^10",
+    "illuminate/support": "^8.0|^9.0|^10|^11",
     "php": ">=7.4"
   },
   "authors": [
