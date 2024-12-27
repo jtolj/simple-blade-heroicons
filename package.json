@@ -1,7 +1,7 @@
 {
   "name": "simple-blade-heroicons",
   "devDependencies": {
-    "heroicons": "^2.1.5",
+    "heroicons": "^2.2.0",
     "jsdom": "^19.0.0",
     "rimraf": "^3.0.2"
   },
